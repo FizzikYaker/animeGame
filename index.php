@@ -30,15 +30,9 @@
 </head>
 
 <body><?php
-        require 'vendor/autoload.php';
+        require_once 'php/pRedis_connection.php';
+        require_once 'php/mySQLi_connection.php';
 
-        use Predis\Client;
-        // Подключение к Redis
-        $redis = new Client([
-            'scheme' => 'tcp',
-            'host' => '127.0.0.1',
-            'port' => 6379,
-        ]);
 
         // Установка значения ключа 'test_key' равным 'Hello, Predis!'
         $redis->set('test_key', 'Hello, Predisas!');
