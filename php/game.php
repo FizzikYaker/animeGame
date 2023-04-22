@@ -1,21 +1,30 @@
 <?php
 
+
 namespace MyApp;
+
+require_once 'pRedis_connection.php';
 
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 
+
+
 class Game implements MessageComponentInterface
 {
+
     protected $clients;
     protected $waitingPlayer;
     protected $games;
+    protected $redis;
 
     public function __construct()
     {
+        global $redisConnection;
         $this->clients = new \SplObjectStorage;
         $this->waitingPlayer = null;
         $this->games = [];
+        $this->redis = $redisConnection;
     }
 
     public function onOpen(ConnectionInterface $conn)
@@ -26,6 +35,7 @@ class Game implements MessageComponentInterface
             echo "1";
         } else {
             $this->games[$conn->resourceId] = $this->waitingPlayer; // два игрока в одной каморке
+            $this->redis->set('test_key', 'Hello, Predisas!');
             $this->games[$this->waitingPlayer->resourceId] = $conn;
 
             $this->waitingPlayer->send(json_encode(['type' => 'start', 'symbol' => 'X']));
@@ -60,6 +70,11 @@ class Game implements MessageComponentInterface
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
         $conn->close();
+    }
+
+    public function chekPlay($msg)
+    {
+        $data = json_decode($msg);
     }
 }
 /*

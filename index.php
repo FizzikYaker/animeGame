@@ -32,20 +32,17 @@
 <body><?php
         require_once 'php/pRedis_connection.php';
         require_once 'php/mySQLi_connection.php';
+        
+        global $redisConnection;
 
+        if ($redisConnection->get('test_key')) { //выводит тот ключ который я ему задал в другом файле
+            $value = $redisConnection->get('test_key');
+            echo $value;
+        }
 
-        // Установка значения ключа 'test_key' равным 'Hello, Predis!'
-        $redis->set('test_key', 'Hello, Predisas!');
-
-        // Получение значения ключа 'test_key'
-        $value = $redis->get('test_key');
-
-        // Вывод значения на экран
-        echo $value; // Вывод: 'Hello, Predis!'
-
-        // Удаление ключа 'test_key'
-        $redis->del('test_key');
+        
         ?>
+    <a href="tryq.php">a</a>
     <div id="game">
         <hp1 id="status">Ожидание игрока...</hp1>
         <button id="restart" style="display:none;">Перезапустить игру</button>
