@@ -7,32 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
     <style>
-    /* Add your styles here */
-    #game {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        /* Add your styles here */
+        #game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .row {
-        display: flex;
-    }
+        .row {
+            display: flex;
+        }
 
-    .cell {
-        border: 1px solid black;
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        line-height: 50px;
-        cursor: pointer;
-    }
+        .cell {
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body><?php
         require_once 'php/pRedis_connection.php';
         require_once 'php/mySQLi_connection.php';
-        
+
         global $redisConnection;
 
         if ($redisConnection->get('test_key')) { //выводит тот ключ который я ему задал в другом файле
@@ -40,7 +40,7 @@
             echo $value;
         }
 
-        
+
         ?>
     <a href="tryq.php">a</a>
     <div id="game">

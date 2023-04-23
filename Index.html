@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>карточная игра</title>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+	<header>
+		<!-- меню-бургер -->
+		<div class="box_outside">
+			<div class="box me-3">
+				<div class="shell_sticky" type="button" data-bs-toggle="collapse" aria-controls="collapseExample"
+					data-bs-target="#collapseExample">
+					<span id="sticky_1" class="sticky"></span>
+					<span id="sticky_2" class="sticky"></span>
+					<span id="sticky_3" class="sticky"></span>
+				</div>
+			</div>
+		</div>
+
+		<!-- открывающееся меню -->
+		<center>
+			<div class="collapse" id="collapseExample">
+				<div class="card card-body d-flex justify-content-center align-items-center">
+					<p><u>Играть</u></p>
+					<p>Рынок</p>
+					<p>Колода</p>
+					<p>Донат</p>
+					<p>Игровая</p>
+					<p>Выход</p>
+				</div>
+			</div>
+		</center>
+		<!-- навигационная панель, она же хедер -->
+		<div class="nav justify-content-between">
+			<div class="d-flex ms-3 flex-wrap">
+				<div class="d-flex justify-content-center align-items-center">
+					<a href="gameField.php" class="btn">
+						<em>
+							<u>
+								Играть
+							</u>
+						</em>
+					</a>
+				</div>
+				<div class="d-flex justify-content-center align-items-center">
+					<a href="#" class="btn">
+						<em>
+							Рынок
+						</em>
+					</a>
+				</div>
+				<div class="d-flex justify-content-center align-items-center">
+					<a href="#" class="btn">
+						<em>
+							регистрация
+						</em>
+					</a>
+				</div>
+				<div class="d-flex justify-content-center align-items-center">
+					<a href="#" class="btn">
+						<em>
+							Колода
+						</em>
+					</a>
+				</div>
+			</div>
+			<div class="me-3 d-flex">
+				<div class="d-flex flex-column">
+					<p>донат</p>
+					<p>игровая</p>
+				</div>
+				<div class="d-flex justify-content-center align-items-center">
+					<a href="#" class="btn">
+						Выход
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- начало главной части сайта -->
+	<main>
+		<!-- ФОРМА РЕГИСТРАЦИИ -->
+		<h1>Регистрация</h1>
+		<form action="php/registration.php" method="post">
+			<label for="username">Имя пользователя:</label>
+			<input type="text" name="login" id="login" required>
+			<br>
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email" required>
+			<br>
+			<label for="password">Пароль:</label>
+			<input type="password" name="password" id="password" required>
+			<br>
+			<button type="submit" name="register">Зарегистрироваться</button>
+		</form>
+		<!-- ФОРМА ЛОГИНА -->
+		<h1>Вход</h1>
+		<form action="php/login.php" method="post">
+			<label for="login">Логин:</label>
+			<input type="text" name="login" id="login" required>
+			<br>
+			<label for="password">Пароль:</label>
+			<input type="password" name="password" id="password" required>
+			<br>
+			<button type="submit" name="submit">Войти</button>
+		</form>
+		<!-- картинка, кнопка играть -->
+		<div id="back_start_main" class="d-flex">
+			<div class="d-flex justify-content-center flex-column align-items-center p-2">
+				<div id="back_start_main_game">
+					<div>
+						<a href="gameField.php">
+							<button class="btn" id="back_start_main_btn">
+								Играть
+							</button>
+						</a>
+					</div>
+					<p id="back_start_main_txt">
+						Сражайся с другими игроками, получай награды, открывай новые карты и трахай телок? f gjnjv yflj
+						dst,fnm lhfrjyf
+					</p>
+				</div>
+			</div>
+			<!-- этот див отвечает за картинку, думаю тут +- вставить -->
+			<div class="d-flex justify-content-end align-items-end">
+				<img id="hat_img" src="img/hero.png">
+			</div>
+		</div>
+		<!-- типо магазин кароточек?? -->
+		<div id="back_magazine">
+			<p class="text-center" style="color: white;">Лучшие цены</p>
+			<div id="magazine_cards" class="d-flex flex-wrap justify-content-around">
+				<div class="m-1">
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div class="m-1">
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+
+				</div>
+				<div class="m-1">
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div class="m-1">
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div class="m-1">
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- начало карусели -->
+			<div class="owl-carousel" style="display: none">
+				<div>
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+				<div>
+					<div class="cards">
+						<img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+						<ul>
+							<li>Имя: рлюшевая Аянами Рей</li>
+							<li>Цена: 3000 гемов</li>
+							<li>Здоровье: 350</li>
+							<li>Мана: 20</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- новостная лента -->
+		<div id="newspaper_content">
+			<p class="text-center" style="color: white;">Новости</p>
+			<div class="d-flex mewspaper_style">
+				<div class="col-4 justify-content-center d-flex">
+					<div class="newspaper" id="newspaper_left">
+						<img style="border-radius: 11px; width: 100%; height: 100%; object-fit: cover;"
+							src="img/news.jpg">
+					</div>
+				</div>
+				<div class="col-8" style="color: white">
+					<ul class="newspaper_text">
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="d-flex mewspaper_style">
+				<div class="col-8" style="color: white">
+					<ul class="newspaper_text">
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
+					</ul>
+				</div>
+				<div class="col-4 justify-content-center d-flex">
+					<div class="newspaper" id="newspaper_right">
+						<img style="border-radius: 11px; width: 100%; height: 100%; object-fit: cover;"
+							src="img/news.jpg">
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+<script type="text/javascript" src="js/jquery-3.6.3.min.js"></script>
+<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+
+</html>
