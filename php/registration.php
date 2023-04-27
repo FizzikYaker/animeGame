@@ -20,7 +20,23 @@ if (isset($_POST['register'])) {
         $stmt->bindParam(':password', $hashed_password);
 
         if ($stmt->execute()) {
-            echo "Успешная регистрация!";
+            $stmt = $pdo->prepare("SELECT id FROM user WHERE login = :login");
+            $stmt->bindParam(':login', $login);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                $id = $user['id'];
+                $deekStart = "12";
+                $allCardStart = "123";
+
+                $stmt = $pdo->prepare("INSERT INTO cardUser (id, deek, all_card) VALUES (:id, :deek, :all_card)");
+                $stmt->bindParam(':id', $id);
+                $stmt->bindParam(':deek', $deekStart);
+                $stmt->bindParam(':all_card', $allCardStart);
+                $stmt->execute();
+                echo "Успешная регистрация!";
+            }
         } else {
             echo "Ошибка: " . implode(", ", $stmt->errorInfo());
         }

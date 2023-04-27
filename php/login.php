@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 
     try {
         // Создаем подготовленный запрос для поиска пользователя по логину
-        $stmt = $pdo->prepare("SELECT * FROM user WHERE login = :login");
+        $stmt = $pdo->prepare("SELECT password, id, login  FROM user WHERE login = :login");
         $stmt->bindParam(':login', $login);
         $stmt->execute();
 
