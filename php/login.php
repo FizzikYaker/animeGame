@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 
     try {
         // Создаем подготовленный запрос для поиска пользователя по логину
-        $stmt = $pdo->prepare("SELECT password, id, login  FROM user WHERE login = :login");
+        $stmt = $pdo->prepare("SELECT password, id, login, email_chek, level, gold_money  FROM user WHERE login = :login");
         $stmt->bindParam(':login', $login);
         $stmt->execute();
 
@@ -24,12 +24,17 @@ if (isset($_POST['submit'])) {
 
             // Проверяем, соответствует ли введенный пароль хешированному паролю из базы данных
             if (password_verify($password, $user['password'])) {
-                // Сохраняем ID и логин пользователя в сессии
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_login'] = $user['login'];
-
-                // Перенаправляем пользователя на главную страницу или его профиль
-                header('Location: /index.html');
+                if ($user['email_chek'] == 1) {
+                    // Сохраняем ID и логин пользователя в сессии
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_login'] = $user['login'];
+                    $_SESSION['user_level'] = $user['level'];
+                    $_SESSION['user_gold_money'] = $user['gold_money'];
+                    // Перенаправляем пользователя на главную страницу или его профиль
+                    header('Location: /index.html');
+                } else {
+                    echo "Подтвердите почту";
+                }
             } else {
                 // Если пароль неверный, выводим сообщение об ошибке
                 echo "Неверный пароль!";
