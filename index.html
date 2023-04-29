@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Игровое поле</title>
+</head>
+
+<body>
+    <header></header>
+    <main id="main">
+        <!-- левое поле -->
+        <div id="field_left">
+            <!-- верхняя часть левого поля -->
+            <div class="field_left_divs">
+                <!-- колода карт -->
+                <div class="field_left_divs_card">
+                    <p style="margin-right: 24px">35x</p>
+                    <div class="cards"></div>
+                </div>
+                <!-- полоска здоровья -->
+                <div class="line_hp"></div>
+            </div>
+            <!-- центральная часть левого поля -->
+            <div id="step_users">
+                <p style="margin: 0">ВАШ ХОД</p>
+            </div>
+            <!-- нижняя часть левого поля -->
+            <div class="field_left_divs">
+                <!-- полоска здоровья -->
+                <div class="line_hp"></div>
+                <!-- колода карт -->
+                <div class="field_left_divs_card">
+                    <p style="margin-right: 24px">35x</p>
+                    <div class="cards"></div>
+                </div>
+            </div>
+        </div>
+        <!-- правое поле -->
+        <div id="field_right" >
+            <!-- карты противника -->
+            <div class="users_cards_div">
+                <div class="users_cards">
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                </div>
+            </div>
+            <!-- игровое поле -->
+            <div style="display: flex; align-items: center">
+                <!-- само игровое поле -->
+                <div id="field_right_div">
+                    <!-- игровое поля противника -->
+                    <div class="field_right_cards">
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                    </div>
+                    <!-- ваше игровое поле -->
+                    <div style="border: 0" class="field_right_cards">
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                    </div>
+                </div>
+                <!-- кнопка остановки -->
+                <div id="button_stop" style="">
+                    <p>кнопка</p>
+                </div>
+            </div>
+            <!-- ваши карты -->
+            <div class="users_cards_div">
+                <div class="users_cards">
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<!-- <script src="main.js"></script> -->
+
+</html>
