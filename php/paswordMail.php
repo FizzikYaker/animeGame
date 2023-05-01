@@ -1,7 +1,7 @@
 <?php
 // Подключаем к БД
 require_once 'mySQLi_connection.php';
-
+require_once 'testMail.php';
 // Проверяем нажата ли кнопка отправки формы
 if (isset($_POST['submit'])) {
     if ($_POST['email']) {
@@ -26,15 +26,6 @@ if (isset($_POST['submit'])) {
 
                         // Переменная $headers нужна для Email заголовка   
                         $subject = '=?utf-8?b?' . base64_encode("Подтвердите Email на сайте") . '?=';
-                        $fromMail = 'community-webma@mail.ru';
-                        $fromName = 'mail.ru';
-                        $date = date(DATE_RFC2822);
-                        $messageId = '<' . time() . '-' . md5($fromMail . $email) . '@' . $_SERVER['SERVER_NAME'] . '>';
-                        $headers  = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
-                        $headers .= "From: " . $fromName . " <" . $fromMail . "> \r\n";
-                        $headers .= "Date: " . $date . " \r\n";
-                        $headers .= "Message-ID: " . $messageId . " \r\n";
                         // Сообщение для Email
                         $message = '
                                 <html>
@@ -53,13 +44,7 @@ if (isset($_POST['submit'])) {
                         $stmt->bindParam(':hash', $hash);
                         if ($stmt->execute()) {
                             // проверяет отправилась ли почта
-                            if (mail($email, $subject, $message, $headers)) {
-                                // Если да, то выводит сообщение
-                                echo 'Подтвердите на почте';
-                            } else {
-                                // Если ошибка есть, то выводить её 
-                                echo "почта не отправлена";
-                            }
+                            mailFunc($email, $message, $subject);
                         } else {
                             echo "бд ебанулось";
                         }

@@ -1,7 +1,7 @@
 <?php
 // Подключаем файл config.php, который содержит настройки подключения к базе данных
 require_once 'mySQLi_connection.php';
-
+require_once 'testMail.php';
 // Проверяем, была ли отправлена форма регистрации
 if (isset($_POST['register'])) {
     // Получаем данные из формы
@@ -51,16 +51,6 @@ if (isset($_POST['register'])) {
 
                         // Переменная $headers нужна для Email заголовка   
                         $subject = '=?utf-8?b?' . base64_encode("Подтвердите Email на сайте") . '?=';
-                        $fromMail = 'community-webma@mail.ru';
-                        $fromName = 'mail.ru';
-                        $date = date(DATE_RFC2822);
-                        $messageId = '<' . time() . '-' . md5($fromMail . $email) . '@' . $_SERVER['SERVER_NAME'] . '>';
-                        $headers  = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
-                        $headers .= "From: " . $fromName . " <" . $fromMail . "> \r\n";
-                        $headers .= "Date: " . $date . " \r\n";
-                        $headers .= "Message-ID: " . $messageId . " \r\n";
-                        // Сообщение для Email
                         $message = '
                                 <html>
                                 <head>
@@ -77,21 +67,15 @@ if (isset($_POST['register'])) {
                         $stmt->bindParam(':id', $id);
                         $stmt->bindParam(':hash', $hash);
                         if ($stmt->execute()) {
-                            // проверяет отправилась ли почта
-                            if (mail($email, $subject, $message, $headers)) {
-                                // Если да, то выводит сообщение
-                                echo 'Подтвердите на почте';
-                                echo "Успешная регистрация!";
-                            }
+                            mailFunc($email, $message, $subject);
                         } else {
-                            // Если ошибка есть, то выводить её 
-                            echo "почта не отправлена";
+                            echo "бд ебанулось";
                         }
                     } else {
-                        echo "бд ебанулось";
+                        echo "Ошибка: " . implode(", ", $stmt->errorInfo());
                     }
                 } else {
-                    echo "Ошибка: " . implode(", ", $stmt->errorInfo());
+                    echo "бд ебанулось";
                 }
             } else {
                 echo "Пользователь с такой почтой уже существует";

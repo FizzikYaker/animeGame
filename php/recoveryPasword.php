@@ -1,7 +1,7 @@
 <?php
 // Подключаем коннект к БД
 require_once 'mySQLi_connection.php';
-
+require_once 'testMail.php';
 // Проверка есть ли хеш
 if ($_GET['hash']) {
     // Кладём этот хеш в отдельную переменную 
@@ -41,15 +41,6 @@ if ($_GET['hash']) {
                         $email = $user['email'];
                         // Переменная $headers нужна для Email заголовка   
                         $subject = '=?utf-8?b?' . base64_encode("Подтвердите Email на сайте") . '?=';
-                        $fromMail = 'community-webma@mail.ru';
-                        $fromName = 'mail.ru';
-                        $date = date(DATE_RFC2822);
-                        $messageId = '<' . time() . '-' . md5($fromMail . $email) . '@' . $_SERVER['SERVER_NAME'] . '>';
-                        $headers  = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= "Content-type: text/html; charset=utf-8" . "\r\n";
-                        $headers .= "From: " . $fromName . " <" . $fromMail . "> \r\n";
-                        $headers .= "Date: " . $date . " \r\n";
-                        $headers .= "Message-ID: " . $messageId . " \r\n";
                         // Сообщение для Email
                         $message = '
                          <html>
@@ -61,13 +52,7 @@ if ($_GET['hash']) {
                          </body>
                          </html>
                          ';
-                        if (mail($email, $subject, $message, $headers)) {
-                            // Если да, то выводит сообщение
-                            echo 'Новый пороль на почте';
-                        } else {
-                            // Если ошибка есть, то выводить её 
-                            echo "почта не отправлена";
-                        }
+                        mailFunc($email, $message, $subject);
                         $stmt = $pdo->prepare("DELETE FROM email_confirm WHERE id=:id");
                         $stmt->bindParam(':id', $id);
                         if ($stmt->execute()) {

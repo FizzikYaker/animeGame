@@ -37,6 +37,7 @@ class ComposerStaticInit9173b646c84dcd537277c186f11bb7b2
         array (
             'Psr\\Http\\Message\\' => 17,
             'Predis\\' => 7,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'G' => 
         array (
@@ -101,6 +102,10 @@ class ComposerStaticInit9173b646c84dcd537277c186f11bb7b2
         'Predis\\' => 
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
