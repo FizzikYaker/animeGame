@@ -1,5 +1,7 @@
 <?php
 // Запускаем сессию, чтобы сохранить данные пользователя после успешного входа
+session_set_cookie_params(1440, "/", null, true, true);
+
 session_start();
 
 // Подключаем файл с настройками подключения к базе данных
@@ -25,13 +27,23 @@ if (isset($_POST['submit'])) {
             // Проверяем, соответствует ли введенный пароль хешированному паролю из базы данных
             if (password_verify($password, $user['password'])) {
                 if ($user['email_chek'] == 1) {
+                    setcookie($user['password']);
+                    $stmt = $pdo->prepare("SELECT deek, all_card  FROM cardUser WHERE id = :id");
+                    $stmt->bindParam(':id', $user['id']);
+                    $stmt->execute();
+                    $userCard = $stmt->fetch(PDO::FETCH_ASSOC);
+                    $_SESSION['deek'] = $userCard['deek'];
+                    $_SESSION['all_card'] = $userCard['all_card'];
                     // Сохраняем ID и логин пользователя в сессии
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_login'] = $user['login'];
                     $_SESSION['user_level'] = $user['level'];
                     $_SESSION['user_gold_money'] = $user['gold_money'];
                     // Перенаправляем пользователя на главную страницу или его профиль
-                    header('Location: /index.html');
+                    echo '<pre>';
+                    var_dump($_SESSION);
+                    echo '</pre>';
+                    // header('Location: /index.html');
                 } else {
                     echo "Подтвердите почту";
                 }

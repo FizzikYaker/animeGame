@@ -38,8 +38,8 @@ if (isset($_POST['register'])) {
                     if ($stmt->rowCount() > 0) {
                         $user = $stmt->fetch(PDO::FETCH_ASSOC);
                         $id = $user['id'];
-                        $deekStart = "12";
-                        $allCardStart = "123";
+                        $deekStart = json_encode([12, 6, 8, 9]);
+                        $allCardStart = json_encode([12, 6, 8, 9]);
 
                         $stmt = $pdo->prepare("INSERT INTO cardUser (id, deek, all_card) VALUES (:id, :deek, :all_card)");
                         $stmt->bindParam(':id', $id);
