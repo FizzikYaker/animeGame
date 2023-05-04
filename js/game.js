@@ -1,8 +1,13 @@
 const statusElement = document.getElementById('status'); // получения статуса игры
 const cells = document.querySelectorAll('[data-cell]'); //Все клетки
 const restartButton = document.getElementById('restart');
-
-const socket = new WebSocket('ws://localhost:7070');
+let user_id = document.getElementById('id');
+user_id = user_id.textContent;
+let user_login = document.getElementById('login');
+user_login = user_login.textContent;
+console.log(user_id);
+console.log(user_login);
+const socket = new WebSocket('ws://localhost:7070?user_id=' + encodeURIComponent(user_id) + '&login=' + encodeURIComponent(user_login));
 let myTurn = false;
 let mySymbol = '';
 

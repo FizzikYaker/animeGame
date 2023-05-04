@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/gameField.css">
+    <title>Игровое поле</title>
+</head>
+
+<body>
+    <div id="circle" style="width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    border-radius: 50%;
+    background: blue;"></div>
+    <div id="circle2" style="width: 100px;
+        height: 100px;
+        position: absolute;
+        left: 50px;
+        top: 500px;
+        border-radius: 50%;
+        background: blue;"></div>
+    <!-- <header></header> -->
+
+    <main id="main">
+        <!-- левое поле -->
+        <div id="field_left">
+            <!-- верхняя часть левого поля -->
+            <div class="field_left_divs">
+                <!-- колода карт -->
+                <div class="field_left_divs_card">
+                    <p style="margin-right: 24px">35x</p>
+                    <div class="cards"></div>
+                </div>
+                <!-- полоска здоровья -->
+                <div class="line_hp"></div>
+                <p id="text_Mana_Enemy">10</p>
+                <p id="text_Hp_Enemy">100</p>
+                <p id="text_nik_Enemy">враг</p>
+            </div>
+            <!-- центральная часть левого поля -->
+            <div id="step_users">
+                <p style="margin: 0">ВАШ ХОД</p>
+            </div>
+
+            <!-- нижняя часть левого поля -->
+            <div class="field_left_divs">
+                <!-- полоска здоровья -->
+                <div class="line_hp"></div>
+                <p id="text_Mana_My">10</p>
+                <p id="text_Hp_My">100</p>
+                <p id="text_nik_My">я</p>
+                <!-- колода карт -->
+                <div class="field_left_divs_card">
+                    <p style="margin-right: 24px">35x</p>
+                    <div class="cards"></div>
+                </div>
+            </div>
+        </div>
+        <!-- правое поле -->
+        <div id="field_right">
+            <!-- карты противника -->
+            <div class="users_cards_div">
+                <div class="users_cards">
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                </div>
+            </div>
+            <!-- игровое поле -->
+            <div style="display: flex; align-items: center">
+                <!-- само игровое поле -->
+                <div id="field_right_div">
+                    <!-- игровое поля противника -->
+                    <div class="field_right_cards">
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                    </div>
+                    <!-- ваше игровое поле -->
+                    <div style="border: 0" class="field_right_cards">
+                        <div class="cards" id="pop"></div>
+                        <div class="cards"></div>
+                        <div class="cards">
+                            <div class="m-1">
+                                <div class="cards">
+                                    <img style="width:100%; height: 55%; object-fit: cover;" src="img/protorype1.jpg">
+                                    <ul>
+                                        <li>Имя: рлюшевая Аянами Рей</li>
+                                        <li>Цена: 3000 гемов</li>
+                                        <li>Здоровье: 350</li>
+                                        <li>Мана: 20</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="cards"></div>
+                        <div class="cards"></div>
+                    </div>
+                </div>
+                <!-- кнопка остановки -->
+                <div id="button_stop" style="">
+                    <p>кнопка</p>
+                </div>
+            </div>
+            <!-- ваши карты -->
+            <div class="users_cards_div">
+                <div class="users_cards">
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                    <div class="cards"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="js/gameField.js"></script>
+
+</html>

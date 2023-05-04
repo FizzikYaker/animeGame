@@ -34,7 +34,10 @@
         require_once 'php/mySQLi_connection.php';
 
         global $redisConnection;
-
+        session_start();
+        echo '<pre>';
+        var_dump($_SESSION);
+        echo '</pre>';
         if ($redisConnection->get('test_key')) { //выводит тот ключ который я ему задал в другом файле
             $value = $redisConnection->get('test_key');
             echo $value;
@@ -42,6 +45,12 @@
 
 
         ?>
+    <div style="display: none;" id="id">
+        <?php echo $_SESSION['user_id'] ?>
+    </div>
+    <div style="display: none;" id="login">
+        <?php echo $_SESSION['user_login'] ?>
+    </div>
     <a href="tryq.php">a</a>
     <div id="game">
         <hp1 id="status">Ожидание игрока...</hp1>
