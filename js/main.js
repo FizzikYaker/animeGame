@@ -37,34 +37,16 @@
 // 	});
 // });
 
-$(function(){
-	$('.text-center').click(function(){
-		alert("иди нахуй максим");
+// header btn
+	document.getElementById('OpenClick').addEventListener("click", function() {
+		this.classList.toggle("open")
 	});
-});
 
-// карусель
-$(document).ready(function(){
-	$(".owl-carousel").owlCarousel({
-		items: 2,
-		loop: true,
-		autoplay : true,
-		autoplayTimeout: 5000,
-		autoplayHoverPause: true,
-		responsive : {
-			100: {
-				items: 1
-			},
-			500: {
-				items: 2
-			},
-			800: {
-				items: 3
-			},
-			1000: {
-				items: 4
-			}
-		}
-	});
-	
-});
+
+// функция для прокрутки в самый низ, когда нажимаешь на кнопку "подробнее"
+function scrollToInfo(){
+	window.scrollTo(0, 2200);
+};
+
+
+
