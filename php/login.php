@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
                     $_SESSION['user_level'] = $user['level'];
                     $_SESSION['user_gold_money'] = $user['gold_money'];
                     // Перенаправляем пользователя на главную страницу или его профиль
-                    echo '<pre>';
+                    echo '<pre>' . 'qsdasf';
                     var_dump($_SESSION);
                     echo '</pre>';
                     // header('Location: /index.html');

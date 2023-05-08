@@ -43,7 +43,6 @@
             echo $value;
         }
 
-
         ?>
     <div style="display: none;" id="id">
         <?php echo $_SESSION['user_id'] ?>

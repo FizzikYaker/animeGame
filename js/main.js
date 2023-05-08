@@ -38,13 +38,13 @@
 // });
 
 // header btn
-	document.getElementById('OpenClick').addEventListener("click", function() {
-		this.classList.toggle("open")
-	});
+document.getElementById('OpenClick').addEventListener("click", function () {
+	this.classList.toggle("open")
+});
 
 
 // функция для прокрутки в самый низ, когда нажимаешь на кнопку "подробнее"
-function scrollToInfo(){
+function scrollToInfo() {
 	window.scrollTo(0, 2200);
 };
 

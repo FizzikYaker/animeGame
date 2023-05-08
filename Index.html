@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>игра</title>
-	
+
 	<!-- bootstrap -->
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 	<!-- css -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
 <body class="p-0">
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-light ">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="#">Играть</a>
 
-				<button id="OpenClick" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<button id="OpenClick" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
 					<span></span>
 					<span></span>
 					<span></span>
@@ -46,11 +50,13 @@
 							</li>
 						</div>
 						<li class="nav-item">
-							<a class="nav-link active" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-current="page" href="#">Регистрация</a>
+							<a class="nav-link active" data-bs-toggle="modal" data-bs-target="#exampleModal"
+								aria-current="page" href="#">Регистрация</a>
 						</li>
 
 						<li class="nav-item">
-							<a class="nav-link active" data-bs-toggle="modal" data-bs-target="#exampleModal2" aria-current="page" href="#">Вход</a>
+							<a class="nav-link active" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+								aria-current="page" href="#">Вход</a>
 						</li>
 
 					</div>
@@ -67,20 +73,22 @@
 				<div class="modal-body">
 
 					<h2 class="text-center">Создание аккаунта</h2>
-					<form  action="php/registration.php" method="post">
+					<form action="php/registration.php" method="post">
 						<div class="mb-3">
 							<label for="username" class="form-label">Выберите имя в игре</label>
-							<input type="text" class="form-control" name="login" id="login"  autocomplete="off" required>
+							<input type="text" class="form-control" name="login" id="login" autocomplete="off" required>
 						</div>
 
 						<div class="mb-3">
 							<label for="email" class="form-label">Введите email</label>
-							<input type="email" name="email" class="form-control" id="email" autocomplete="off" required="">
+							<input type="email" name="email" class="form-control" id="email" autocomplete="off"
+								required="">
 						</div>
 
 						<div class="mb-3">
 							<label for="exampleInputPassword1" class="form-label">Придумайте пароль к игре</label>
-							<input type="password" class="form-control" name="password" id="password" autocomplete="off" required="">
+							<input type="password" class="form-control" name="password" id="password" autocomplete="off"
+								required="">
 						</div>
 						<!-- вот этого дива нет в бд?? -->
 						<div class="mb-3">
@@ -90,7 +98,8 @@
 						<!-- согласие в бд тоже нет?? -->
 						<div class="mb-3 form-check">
 							<input type="checkbox" class="form-check-input" id="exampleCheck1">
-							<label class="form-check-label" for="exampleCheck1">Я согласен с условиями пользовательского соглашения</label>
+							<label class="form-check-label" for="exampleCheck1">Я согласен с условиями пользовательского
+								соглашения</label>
 						</div>
 
 						<div class="text-center">
@@ -113,25 +122,28 @@
 					<form action="php/login.php" method="post">
 
 						<div class="mb-3">
-							<label for="login" class="form-label"> Электронная почта</label>
+							<label for="login" class="form-label"> Логин</label>
 							<input type="text" name="login" class="form-control" id="login" autocomplete="off" required>
 						</div>
 
 						<div class="mb-3">
 							<label for="password" class="form-label">Пароль</label>
-							<input type="password" name="password" class="form-control" id="password" autocomplete="off" required>
+							<input type="password" name="password" class="form-control" id="password" autocomplete="off"
+								required>
 						</div>
 						<div class="text-center">
-							<button type="submit" class="btn btn-pink">Войти</button>
+							<button type="submit" class="btn btn-pink" name="submit">Войти</button>
 						</div>
 						<!-- тут просто переброс на другие формы -->
 						<div class="d-flex">
 							<p class="me-1" style="color: white">Не удаётся войти?</p>
-							<a href=""data-bs-toggle="modal" data-bs-target="#exampleModal3" style="text-decoration: none;">Восстановить аккаунт</a>
+							<a href="" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+								style="text-decoration: none;">Восстановить аккаунт</a>
 						</div>
 						<div class="d-flex">
 							<p class="me-1" style="color: white">Нет аккаунта?</p>
-							<a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" style="text-decoration: none;">Создать аккаунт</a>
+							<a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
+								style="text-decoration: none;">Создать аккаунт</a>
 						</div>
 					</form>
 
@@ -155,11 +167,13 @@
 						</div>
 
 						<div class="mb-3">
-							<label for="email" class="form-label">Введите email (логин), к которому привязан аккаун</label>
-							<input type="email" name="email" class="form-control" id="email" autocomplete="off" required>
+							<label for="email" class="form-label">Введите email (логин), к которому привязан
+								аккаун</label>
+							<input type="email" name="email" class="form-control" id="email" autocomplete="off"
+								required>
 						</div>
 
-						
+
 						<div class="text-center">
 							<button type="submit" name="submit" class="btn btn-pink">Продолжить</button>
 						</div>
@@ -230,10 +244,13 @@
 						<img src="img/magazine.png" class="card-img-top" alt="img">
 						<div class="card-body">
 							<h5 class="card-title text-center">Уважаемые игроки!</h5>
-							<p class="card-text text-center">Грядут изменения! В новой части обновления мы посторались на славу так что можете все изменения изучить самостоятельно</p>
+							<p class="card-text text-center">Грядут изменения! В новой части обновления мы посторались
+								на славу так что можете все изменения изучить самостоятельно</p>
 
 							<div class="text-center">
-								<a onclick="scrollToInfo()" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1" class="btn text-center">Подробнее</a>
+								<a onclick="scrollToInfo()" data-bs-target="#carouselExampleIndicators"
+									data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"
+									class="btn text-center">Подробнее</a>
 							</div>
 						</div>
 					</div>
@@ -247,7 +264,8 @@
 							<h5 class="card-title text-center">Уважаемые игроки!</h5>
 							<p class="card-text text-center">Обновление 2.0.17</p>
 							<div class="text-center">
-								<a onclick="scrollToInfo()" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" class="btn text-center">Подробнее</a>
+								<a onclick="scrollToInfo()" type="button" data-bs-target="#carouselExampleIndicators"
+									data-bs-slide-to="1" aria-label="Slide 2" class="btn text-center">Подробнее</a>
 							</div>
 						</div>
 					</div>
@@ -258,7 +276,8 @@
 							<h5 class="card-title text-center">Уважаемые игроки!</h5>
 							<p class="card-text text-center">Обновление 1.5.8</p>
 							<div class="text-center">
-								<a onclick="scrollToInfo()"  type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" class="btn text-center">Подробнее</a>
+								<a onclick="scrollToInfo()" type="button" data-bs-target="#carouselExampleIndicators"
+									data-bs-slide-to="2" aria-label="Slide 3" class="btn text-center">Подробнее</a>
 							</div>
 						</div>
 					</div>
@@ -276,10 +295,12 @@
 					<div class="row carousel-inner m-0">
 						<div class="news_open carousel-item active">
 							<div class="card">
-								<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+								<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+									class="card-img-top" alt="img">
 								<div class="card-body">
 									<h5 class="card-title text-center">Уважаемые игроки!</h5>
-									<p class="card-text text-center">Грядут изменения! В новой части обновления мы посторались на славу так что можете все изменения изучить самостоятельно</p>
+									<p class="card-text text-center">Грядут изменения! В новой части обновления мы
+										посторались на славу так что можете все изменения изучить самостоятельно</p>
 
 
 								</div>
@@ -288,10 +309,13 @@
 								<div class="row">
 									<div class="col-md-6" style="padding-left: 0; margin-top: 20px">
 										<div class="card">
-											<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+											<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+												class="card-img-top" alt="img">
 											<div class="card-body">
 												<h5 class="card-title text-center">Уважаемые игроки!</h5>
-												<p class="card-text text-center">Грядут изменения! В новой части обновления мы посторались на славу так что можете все изменения изучить самостоятельно</p>
+												<p class="card-text text-center">Грядут изменения! В новой части
+													обновления мы посторались на славу так что можете все изменения
+													изучить самостоятельно</p>
 
 
 											</div>
@@ -299,10 +323,13 @@
 									</div>
 									<div class="col-md-6" style="padding-right: 0; margin-top: 20px">
 										<div class="card">
-											<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+											<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+												class="card-img-top" alt="img">
 											<div class="card-body">
 												<h5 class="card-title text-center">Уважаемые игроки!</h5>
-												<p class="card-text text-center">Грядут изменения! В новой части обновления мы посторались на славу так что можете все изменения изучить самостоятельно</p>
+												<p class="card-text text-center">Грядут изменения! В новой части
+													обновления мы посторались на славу так что можете все изменения
+													изучить самостоятельно</p>
 
 
 											</div>
@@ -313,7 +340,8 @@
 						</div>
 						<div class="news_open carousel-item">
 							<div class="card">
-								<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+								<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+									class="card-img-top" alt="img">
 								<div class="card-body">
 									<h5 class="card-title text-center">Обновление 2.0.17</h5>
 									<p class="card-text text-center">оптимизированн код игры</p>
@@ -325,10 +353,13 @@
 								<div class="row">
 									<div class="col-md-6" style="padding-left: 0; margin-top: 20px">
 										<div class="card">
-											<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+											<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+												class="card-img-top" alt="img">
 											<div class="card-body">
-												<h5 class="card-title text-center">подготовили обновление для более плавное игры</h5>
-												<p class="card-text text-center">теперь у вас не будет происходить ошибки, которые появлялись</p>
+												<h5 class="card-title text-center">подготовили обновление для более
+													плавное игры</h5>
+												<p class="card-text text-center">теперь у вас не будет происходить
+													ошибки, которые появлялись</p>
 
 
 											</div>
@@ -336,10 +367,12 @@
 									</div>
 									<div class="col-md-6" style="padding-right: 0; margin-top: 20px">
 										<div class="card">
-											<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+											<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+												class="card-img-top" alt="img">
 											<div class="card-body">
 												<h5 class="card-title text-center">пофиксили баги</h5>
-												<p class="card-text text-center">теперь у вас не будет вылетать при нажатии играть</p>
+												<p class="card-text text-center">теперь у вас не будет вылетать при
+													нажатии играть</p>
 
 
 											</div>
@@ -350,7 +383,8 @@
 						</div>
 						<div class="news_open carousel-item">
 							<div class="card">
-								<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+								<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+									class="card-img-top" alt="img">
 								<div class="card-body">
 									<h5 class="card-title text-center">Обновление 1.5.8</h5>
 									<p class="card-text text-center">открытый бета-тест игры!</p>
@@ -362,7 +396,8 @@
 								<div class="row">
 									<div class="col-md-6" style="padding-left: 0; margin-top: 20px">
 										<div class="card">
-											<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+											<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+												class="card-img-top" alt="img">
 											<div class="card-body">
 												<h5 class="card-title text-center">поЯвилась функция игры вместе</h5>
 												<p class="card-text text-center">теперь можно играть вдыоем </p>
@@ -373,10 +408,13 @@
 									</div>
 									<div class="col-md-6" style="padding-right: 0; margin-top: 20px">
 										<div class="card">
-											<img style="height:123px; object-fit: cover;" src="img/magazine.png" class="card-img-top" alt="img">
+											<img style="height:123px; object-fit: cover;" src="img/magazine.png"
+												class="card-img-top" alt="img">
 											<div class="card-body">
-												<h5 class="card-title text-center">добавлены несколько новых персонажеей</h5>
-												<p class="card-text text-center">встречайте убицу, медика и главного босса</p>
+												<h5 class="card-title text-center">добавлены несколько новых персонажеей
+												</h5>
+												<p class="card-text text-center">встречайте убицу, медика и главного
+													босса</p>
 
 
 											</div>
@@ -394,4 +432,5 @@
 
 </body>
 <script type="text/javascript" src="js/main.js"></script>
+
 </html>
