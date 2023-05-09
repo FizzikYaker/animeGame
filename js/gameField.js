@@ -1,3 +1,8 @@
+
+
+
+
+
 // // получение ширины и высоты экрана
 // let WindowHeight = document.documentElement.clientHeight;
 // let WindowWidth = document.documentElement.clientWidth;
@@ -66,58 +71,59 @@ const allCards = [[1, "sfsfsfsf", 10, 3, 3, "img/protorype1.jpg", "esghhglkehg",
 // console.dir(Card.Damage(card1, card2));
 
 
-const statusElement = document.getElementById('status'); // получения статуса игры
-const restartButton = document.getElementById('restart');
-const button_stop = document.getElementById('button_stop');// получение кнопки хода
-let user_id = document.getElementById('id');
-user_id = user_id.textContent;
-let user_login = document.getElementById('login');
-user_login = user_login.textContent;
-const socket = new WebSocket('ws://localhost:7070?user_id=' + encodeURIComponent(user_id) + '&login=' + encodeURIComponent(user_login));
+// const statusElement = document.getElementById('status'); // получения статуса игры
+// const restartButton = document.getElementById('restart');
+// const button_stop = document.getElementById('button_stop');// получение кнопки хода
+// let user_id = document.getElementById('id');
+// user_id = user_id.textContent;
+// let user_login = document.getElementById('login');
+// user_login = user_login.textContent;
+// const socket = new WebSocket('ws://localhost:7070?user_id=' + encodeURIComponent(user_id) + '&login=' + encodeURIComponent(user_login));
 
-socket.onmessage = function (event) {
-    const data = JSON.parse(event.data);
+// socket.onmessage = function (event) {
+//     const data = JSON.parse(event.data);
 
-    if (data.type === 'start') {
-        console.dir(data);
-        for (let i = 0; i <= 3; ++i) {
-            DrawCard(i, allCards[data.hand[i]]);
-            // второму юзеру дать пустышки на руку
-        }
-        // раздать логин опонента
-    } else if (data.type === 'end') {
-        // передать награды и закончить
+//     if (data.type === 'start') {
+//         console.dir(data);
+//         for (let i = 0; i <= 3; ++i) {
+//             DrawCard(i, allCards[data.hand[i]]);
+//             // второму юзеру дать пустышки на руку
+//         }
+//         // раздать логин опонента
+//     } else if (data.type === 'end') {
+//         // передать награды и закончить
 
-    } else if (data.type === 'restart') {
-        // хз что это
+//     } else if (data.type === 'restart') {
+//         // хз что это
 
-    } else if (data.type === 'enemy_atak') {
-        //  выставить карты врага и дать выставить свои карты
+//     } else if (data.type === 'enemy_atak') {
+//         //  выставить карты врага и дать выставить свои карты
 
-    } else if (data.type === 'enemy_deff') {
-        // выставить карты врага и начать анимацию атаки 
+//     } else if (data.type === 'enemy_deff') {
+//         // выставить карты врага и начать анимацию атаки 
 
-    } else if (data.type === 'my_atakk') {
-        // дать выстовить свои карты и начать атаку
+//     } else if (data.type === 'my_atakk') {
+//         // дать выстовить свои карты и начать атаку
 
-    }
-}
+//     }
+// }
 
 
 
-// let field = [0, 0, 0, 0, 0];// отправка данных карт на поле при нажатии на кнопку хода
+let field = [0, 0, 0, 0, 0, 0];//первое число количество карт отправка данных карт на поле при нажатии на кнопку хода !!!!!!!!!!!! заблокировать ход
 // button_stop.addEventListener('mousedown', e => {
 //     socket.send(JSON.stringify(field));
 // });
 
 
 
-
+DrawCard(1, allCards[1]);
+DrawCard(2, allCards[2]);
 
 function DrawCard(id, card) { //куда рисовать будет поле с пронумироваными дивами по номеру дива и ресуем
     console.log(id);
     let elem = document.getElementById(id);
-    elem.insertAdjacentHTML('afterbegin', `<div class="m-1" id="C${id}" data-id="${card[0]}" data-oldPoz="-1"> <div class="cards" " id="M${id}"> <img style="width:100%; height: 55%; object-fit: cover;" src="${card[5]}"><ul><li>Имя: ${card[1]}</li><li> мана: ${card[4]}</li><li>Здоровье: ${card[3]}</li><li>дамаг: ${card[6]}</li></ul></div></div>`);
+    elem.insertAdjacentHTML('afterbegin', `<div class="m-1" id="C${id}" onmousedown="Drag(this)" data-id="${card[0]}" data-oldPoz="-1"> <div class="cards" " id="M${id}"> <img style="width:100%; height: 55%; object-fit: cover;" src="${card[5]}"><ul><li>Имя: ${card[1]}</li><li> мана: ${card[4]}</li><li>Здоровье: ${card[3]}</li><li>дамаг: ${card[6]}</li></ul></div></div>`);
 }
 
 function RedrawMana(my, enemy) {
@@ -145,74 +151,88 @@ PrintLogin("My", "Enemy");
 
 //перемещение
 var div;
+var checkDraw = false;
+var elemUnderMouse = 0;
+var x = 0;// координаты мыши
+var y = 0;
 var listener = function (e) {
-
+    x = e.clientX;
+    y = e.clientY;
     div.style.left = e.pageX - 50 + "px";
     div.style.top = e.pageY - 50 + "px";
 };
 
-addEventListener('mousedown', e => {
-    console.log(e.target.id);
-    if (e.target.id == "M0") { // получаем событие передвижение всего что лежит в руке
-        div = document.getElementById('C0')
+function Drag(elem) {
+    if (checkDraw == false) {
+        div = document.getElementById(elem.id)
         div.style.position = "absolute";
         document.addEventListener('mousemove', listener);
-    } else if (e.target.id == "M1") {
-        div = document.getElementById('C1')
-        div.style.position = "absolute";
-        document.addEventListener('mousemove', listener);
-    } else if (e.target.id == "M2") {
-        div = document.getElementById('C2')
-        div.style.position = "absolute";
-        document.addEventListener('mousemove', listener);
-    } else if (e.target.id == "M3") {
-        div = document.getElementById('C3')
-        div.style.position = "absolute";
-        document.addEventListener('mousemove', listener);
+        checkDraw = true;
     } else {
-        e.preventDefault();
-    }
-});
+        div.style.display = "none";
+        div.style.position = "";
 
-addEventListener('mouseup', e => {
-    div.style.display = "none";
-    div.style.position = "";
-    var elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
-    if (elementUnderMouse.id == "10" || elementUnderMouse.id == "20" || elementUnderMouse.id == "30" || elementUnderMouse.id == "40" || elementUnderMouse.id == "50") {
-        div.style.display = "block";
-        MoveCard(div, elementUnderMouse);
-        //запуск функции перемещения карты
-    } else {
-        div.style.display = "block";
-        // возвращения обекта
+        if (document.elementFromPoint(x, y).id == "myField") {// либо проверять ид боксов
+            div.style.display = "block";
+            MoveCard(div, x);
+            //запуск функции перемещения карты
+        } else {
+            div.style.display = "block";
+            // возвращения обекта
+        }
+        document.removeEventListener('mousemove', listener);
+        checkDraw = false;
     }
-    document.removeEventListener('mousemove', listener);
-});
+}
 
-function MoveCard(div, elementUnderMouse) {
-    //let a = div.cloneNode(true);
-    if (div.dataset.oldPoz != "-1") {
-        field[div.dataset.oldPoz] = 0;
-    }
+var myField = document.getElementById("myField");
+var myFieldDiv = document.getElementById("myFieldDiv");
+function MoveCard(div, x) {
 
-    if (elementUnderMouse.id == "10") {
-        field[0] = div.dataset.id;
-        div.dataset.oldPoz = 0;
-    } else if (elementUnderMouse.id == "20") {
-        field[1] = div.dataset.id;
-        div.dataset.oldPoz = 1;
-    } else if (elementUnderMouse.id == "30") {
-        field[2] = div.dataset.id;
-        div.dataset.oldPoz = 2;
-    } else if (elementUnderMouse.id == "40") {
-        field[3] = div.dataset.id;
-        div.dataset.oldPoz = 3;
-    } else {
-        field[4] = div.dataset.id;
-        div.dataset.oldPoz = 4;
-    }
-    console.dir(field);
+
     div.remove();
-    elementUnderMouse.appendChild(div.cloneNode(true));// здесь сообщять о премещении
-    // копирует хтмл дива и вставляет туда куда положили
+    if (field[0] != 0) {
+        field[0] += 1;
+        myFieldDiv.style.width = `${field[0] * 18}%`;
+        var coord = myFieldDiv.getBoundingClientRect();
+        console.log(coord.left);
+        console.log(x);
+        if (coord.left > x) {
+            console.log("вставляем в начало");
+            myFieldDiv.prepend(div.cloneNode(true));
+        } else {
+            console.log("вставляем в конец");
+            myFieldDiv.appendChild(div.cloneNode(true));
+        }
+    } else {
+        field[0] += 1;
+        myFieldDiv.style.width = `${field[0] * 18}%`;
+        myFieldDiv.appendChild(div.cloneNode(true));
+    }
+
+    //let a = div.cloneNode(true);
+    // if (div.dataset.oldPoz != "-1") {
+    //     field[div.dataset.oldPoz] = 0;
+    // }
+
+    // if (elementUnderMouse.id == "10") {
+    //     field[0] = div.dataset.id;
+    //     div.dataset.oldPoz = 0;
+    // } else if (elementUnderMouse.id == "20") {
+    //     field[1] = div.dataset.id;
+    //     div.dataset.oldPoz = 1;
+    // } else if (elementUnderMouse.id == "30") {
+    //     field[2] = div.dataset.id;
+    //     div.dataset.oldPoz = 2;
+    // } else if (elementUnderMouse.id == "40") {
+    //     field[3] = div.dataset.id;
+    //     div.dataset.oldPoz = 3;
+    // } else {
+    //     field[4] = div.dataset.id;
+    //     div.dataset.oldPoz = 4;
+    // }
+    // console.dir(field);
+    // div.remove();
+    // elementUnderMouse.appendChild(div.cloneNode(true));// здесь сообщять о премещении
+    // // копирует хтмл дива и вставляет туда куда положили
 }

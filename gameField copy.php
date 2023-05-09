@@ -48,7 +48,7 @@
                         <div class="cards"></div>
                     </div>
                     <!-- полоска здоровья -->
-                    <div class="line_hp" name="ss"></div>
+                    <div class="line_hp"></div>
                     <p id="text_Mana_Enemy">10</p>
                     <p id="text_Hp_Enemy">100</p>
                     <p id="text_nik_Enemy">враг</p>
@@ -97,13 +97,18 @@
                             <div class="cards"></div>
                         </div>
                         <!-- ваше игровое поле -->
-                        <div style="border: 0" class="field_right_cards">
-                            <div class="cards" id="10"></div>
+                        <div style="border: 0" class="field_right_cards" id="myField">
+                            <!-- position: relative; -->
+                            <div class="cards" id="myFieldDiv" style="display: flex; justify-content: space-around;  width: 0%">
+                                <!-- хранит все карты его размеры зависят от количества карт(90%, 72%, 54%,36%,18%) -->
+                            </div>
+
+                            <!-- <div class="cards" id="10"></div>
                             <div class="cards" id="20"></div>
                             <div class="cards" id="30">
                             </div>
                             <div class="cards" id="40"></div>
-                            <div class="cards" id="50"></div>
+                            <div class="cards" id="50"></div> -->
                         </div>
                     </div>
                     <!-- кнопка остановки -->
