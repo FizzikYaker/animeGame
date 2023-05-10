@@ -90,16 +90,23 @@
                     <div id="field_right_div">
                         <!-- игровое поля противника -->
                         <div class="field_right_cards">
+                            <div class="cards" id="EnemyFieldDiv"
+                                style="display: flex; justify-content: space-around;  width: 0%">
+                                <!-- хранит все карты его размеры зависят от количества карт(90%, 72%, 54%,36%,18%) -->
+                            </div>
+
+
+                            <!-- <div class="cards"></div>
                             <div class="cards"></div>
                             <div class="cards"></div>
                             <div class="cards"></div>
-                            <div class="cards"></div>
-                            <div class="cards"></div>
+                            <div class="cards"></div> -->
                         </div>
                         <!-- ваше игровое поле -->
                         <div style="border: 0" class="field_right_cards" id="myField">
                             <!-- position: relative; -->
-                            <div class="cards" id="myFieldDiv" style="display: flex; justify-content: space-around;  width: 0%">
+                            <div class="cards" id="myFieldDiv"
+                                style="display: flex; justify-content: space-around;  width: 0%">
                                 <!-- хранит все карты его размеры зависят от количества карт(90%, 72%, 54%,36%,18%) -->
                             </div>
 
