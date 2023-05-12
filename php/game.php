@@ -10,6 +10,7 @@ require_once 'mySQLi_connection.php';
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 
+const numDeck = 40; // максимальное количество карт в колоде
 const allCard = [
     [], //это оставить пустым оно нулевое
     [10, 2, 3], // карта[хп, мана, дамаг]
@@ -98,13 +99,13 @@ class Game implements MessageComponentInterface
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        $data = json_decode($msg);
+        $data = json_decode($msg, true);
         var_dump("данные", $data);
         $redisData = 0;
         $redisKey = -1;
         // здесь распокавать нужный редис
         if ($this->redis->exists($from->resourceId) == 1) {
-            $redisData = json_decode($this->redis->get($from->resourceId));
+            $redisData = json_decode($this->redis->get($from->resourceId), true);
             $redisKey = $from->resourceId;
             var_dump("редис", $redisData);
         } else {
@@ -112,29 +113,91 @@ class Game implements MessageComponentInterface
             $redisKey = $this->games[$from->resourceId]->resourceId;
             var_dump("редис", $redisData);
         }
-        $turn = 0;
+        $turn = $redisData['turn'];
         if ($turn == 0) {
             $redisData['turn'] = 1; // меняем ход
             foreach ($data as $key => $value) {
                 if ($value != 0) {
                     $redisData['user_1'][1] =  $redisData['user_1'][1] - allCard[$value][1]; //снимаем ману !!!!!!! проверка на отрицательное
+                    foreach ($redisData['hand_1'] as $key2 => $value2) {
+                        if ($value2[0] == $value) {
+                            array_splice($redisData['hand_1'], $key2, 1); // удалить выставленую карту из руки
+                            break 1;
+                        }
+                    }
                     $redisData['field_1'][$key] = [$value, allCard[$value][0], allCard[$value][1], allCard[$value][2]]; // тут проверить куда поставить
                 }
             }
+
             $this->games[$from->resourceId]->send(json_encode(['type' => 'enemy_atak', 'enemy_mana' =>  $redisData['user_1'][1], 'card' =>  $data])); // отпраляем второрму
         } elseif ($turn == 1) {
             $redisData['turn'] = 2;
-            // снимаем ману
-            // подсчет урона по картам или игроку
-            // проверка выживших карт и самого игрока
-            // меняем ход на 2
-            // отправляем ид сдохших карт ид и здоровье выживших карт, здоровье игроков и их ману, добавляем юзерам карты из колоды
-            // запись карт в редис
+            foreach ($data as $key => $value) {
+                if ($value != 0) {
+                    $redisData['user_2'][1] =  $redisData['user_2'][1] - allCard[$value][1]; //снимаем ману !!!!!!! проверка на отрицательное
+                    $redisData['field_2'][$key] = [$value, allCard[$value][0], allCard[$value][1], allCard[$value][2]]; // тут проверить куда поставить
+                }
+            }
+            $idDefit_user_1 = [];
+            $idDefit_user_2 = [];
+            $hpCard_user_1 = [];
+            $hpCard_user_2 = [];
+            foreach ($redisData['field_1'] as $key => $value) {
+                if ($data[$key] != 0) {
+                    $value[1] = $value[1] -  $redisData['field_2'][$key][3]; // снимаем хдоровье карт
+                    if ($value[1] <= 0) {
+                        array_push($idDefit_user_1, $value[0], $key); //ид и позиция сдохшей
+                    } else {
+                        array_push($hpCard_user_1, $value[1], $key); //хп и позиция выжевшей
+                        array_push($redisData['hand_1'], $value); // сбрасываем выжевшую карту в руку
+                    }
+                    $redisData['field_2'][$key][1] = $redisData['field_2'][$key][1] -   $value[3];
+                    if ($redisData['field_2'][$key][1] <= 0) {
+                        array_push($idDefit_user_2, $redisData['field_2'][$key][0], $key); //ид и позиция сдохшей
+                    } else {
+                        array_push($hpCard_user_2, $redisData['field_2'][$key][1], $key); //хп и позиция выжевшей
+                        array_push($redisData['hand_1'],  $redisData['field_2'][$key]); // сбрасываем выжевшую карту в руку
+                    }
+                } else {
+                    $redisData['user_2'][0] = $redisData['user_2'][0] - $value[3]; // снимаем хдоровье игрока
+                }
+            }
+            if ($redisData['user_2'][0] <= 0) {
+                //определить победителя и всё почистить !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            } else {
+                //очищяем поле
+                $redisData['field_1'] = [];
+                $redisData['field_2'] = [];
+
+                $redisData['user_1'][1] = $redisData['user_1'][1] + 1; //добовляем ману
+                $redisData['user_2'][1] = $redisData['user_2'][1] + 1;
+
+                if ($redisData['user_1'][2] < numDeck - 1) { //проверка что в колоде еще есть карты
+                    $redisData['user_1'][2] = $redisData['user_1'][2] + 1; //добовляем количество использованых карт и саму карту на руку
+                    array_push($redisData['hand_1'], [$redisData['deek_1'][$redisData['user_1'][2]], allCard[$redisData['deek_1'][$redisData['user_1'][2]]][0], allCard[$redisData['deek_1'][$redisData['user_1'][2]]][1], allCard[$redisData['deek_1'][$redisData['user_1'][2]]][3]]);
+                }
+                if ($redisData['user_2'][2] < numDeck - 1) {
+                    $redisData['user_2'][2] = $redisData['user_2'][2] + 1;
+                    array_push($redisData['hand_2'], [$redisData['deek_2'][$redisData['user_2'][2]], allCard[$redisData['deek_2'][$redisData['user_2'][2]]][0], allCard[$redisData['deek_2'][$redisData['user_2'][2]]][1], allCard[$redisData['deek_2'][$redisData['user_2'][2]]][3]]);
+                }
+            }
+            // хз че отправлять юзеров бы не напутать
+            // отправляем превому карты второго и всё для атаки
+            // отправляем второму результат битвы и даём выставить каарты?
+            $this->games[$from->resourceId]->send(json_encode(['type' => 'my_atakk', 'enemy_mana' => $redisData['user_2'][1], 'enemy_hp' => $redisData['user_2'][0], 'enemyCard' =>  $data, 'enemyHpCard' =>  $hpCard_user_2, 'enemyDefitCard' => $idDefit_user_2, 'my_mana' => $redisData['user_1'][1], 'my_hp' => $redisData['user_1'][0], 'myHpCard' => $hpCard_user_1, 'myDefitCard' => $idDefit_user_1, 'hand' => $redisData['hand_1']]));
+            $from->send(json_encode(['type' => 'enemy_deff', 'enemy_mana' => $redisData['user_1'][1], 'enemy_hp' => $redisData['user_1'][0], 'enemyHpCard' =>  $hpCard_user_1, 'enemyDefitCard' => $idDefit_user_1, 'my_mana' => $redisData['user_2'][1], 'my_hp' => $redisData['user_2'][0], 'myHpCard' => $hpCard_user_2, 'myDefitCard' => $idDefit_user_2, 'hand' => $redisData['hand_2']]));
+            // отправляем ид сдохших карт ид и здоровье выживших карт, здоровье игроков и их ману, добавляем юзерам карты из колоды и ману
         } elseif ($turn == 2) {
             $redisData['turn'] = 3;
             foreach ($data as $key => $value) {
                 if ($value != 0) {
                     $redisData['user_2'][1] = $redisData['user_2'][1] - allCard[$value][1]; //снимаем ману !!!!!!! проверка на отрицательное
+                    foreach ($redisData['hand_2'] as $key2 => $value2) {
+                        if ($value2[0] == $value) {
+                            array_splice($redisData['hand_2'], $key2, 1); // удалить выставленую карту из руки
+                            break 1;
+                        }
+                    }
                     $redisData['field_2'][$key] = [$value, allCard[$value][0], allCard[$value][1], allCard[$value][2]]; // тут проверить куда поставить
                 }
             }
@@ -146,7 +209,6 @@ class Game implements MessageComponentInterface
             // проверка выживших карт и самого игрока
             // меняем ход на 0
             // отправляем ид сдохших карт ид и здоровье выживших карт, здоровье игроков и их ману, добавляем юзерам карты из колоды
-            // запись карт в редис
         }
         var_dump($redisData);
         $this->redis->set($redisKey, json_encode($redisData)); // сохраняем изменения в редис
@@ -192,8 +254,8 @@ class Game implements MessageComponentInterface
 
 
         $this->redis->set($id, json_encode([
-            'user_1' => [20, 10, 3, $user_1[2]], //хп мана количество использованных карт с нуля и ид юзера
-            'user_2' => [20, 10, 3, $user_2[2]],
+            'user_1' => [20, 2, 3, $user_1[2]], //хп мана количество использованных карт с нуля и ид юзера
+            'user_2' => [20, 2, 3, $user_2[2]],
             'turn' => 0, // кто ходит 0-первый атакует, 1-второй зашита, 2-второй атакует, 3-первый зашита и опять 0
             'hand_1' => [allCard[$arr1[0]], allCard[$arr1[1]], allCard[$arr1[2]], allCard[$arr1[3]]], // карты на руке ид, хп, мана, дмг[1, 10, 2, 5]
             'hand_2' => [allCard[$arr2[0]], allCard[$arr2[1]], allCard[$arr2[2]], allCard[$arr2[3]]],

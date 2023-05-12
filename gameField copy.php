@@ -91,7 +91,7 @@
                         <!-- игровое поля противника -->
                         <div class="field_right_cards">
                             <div class="cards" id="EnemyFieldDiv"
-                                style="display: flex; justify-content: space-around;  width: 0%">
+                                style="display: flex; justify-content: space-around;  width: 100%">
                                 <!-- хранит все карты его размеры зависят от количества карт(90%, 72%, 54%,36%,18%) -->
                             </div>
 

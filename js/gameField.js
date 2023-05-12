@@ -14,56 +14,61 @@ const allCards = [[],//этот элемент оставить пустым
 [13, "sfsfsfsf", 10, 3, 3, "img/protorype1.jpg", "esghhglkehg", "leijeij"]] //масив со всеми картами
 
 
-// const statusElement = document.getElementById('status'); // получения статуса игры
-// const restartButton = document.getElementById('restart');
-// const button_stop = document.getElementById('button_stop');// получение кнопки хода
-// let user_id = document.getElementById('id');
-// user_id = user_id.textContent;
-// let user_login = document.getElementById('login');
-// user_login = user_login.textContent;
-// const socket = new WebSocket('ws://localhost:7070?user_id=' + encodeURIComponent(user_id) + '&login=' + encodeURIComponent(user_login));
+const statusElement = document.getElementById('status'); // получения статуса игры
+const restartButton = document.getElementById('restart');
+const button_stop = document.getElementById('button_stop');// получение кнопки хода
+let user_id = document.getElementById('id');
+user_id = user_id.textContent;
+let user_login = document.getElementById('login');
+user_login = user_login.textContent;
+const socket = new WebSocket('ws://localhost:7070?user_id=' + encodeURIComponent(user_id) + '&login=' + encodeURIComponent(user_login));
 
-// socket.onmessage = function (event) {
-//     const data = JSON.parse(event.data);
+socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
 
-//     if (data.type === 'start') {
-//         console.dir(data);
-//         for (let i = 0; i <= 3; ++i) {
-//             DrawCard(i, allCards[data.hand[i]]);
-//             // второму юзеру дать пустышки на руку
-//         }
-//         // раздать логин опонента
-//     } else if (data.type === 'end') {
-//         // передать награды и закончить
+    if (data.type === 'start') {
+        console.log("старт");
+        console.dir(data);
+        for (let i = 0; i <= 3; ++i) {
+            DrawCard(i, allCards[data.hand[i]]);
+            // второму юзеру дать пустышки на руку
+        }
+        // раздать логин опонента
+    } else if (data.type === 'end') {
+        // передать награды и закончить
 
-//     } else if (data.type === 'restart') {
-//         // хз что это
+    } else if (data.type === 'restart') {
+        // хз что это
 
-//     } else if (data.type === 'enemy_atak') {
-//RedrawField(data.card);
-//chek = false;
-//         //  выставить карты врага и дать выставить свои карты 
+    } else if (data.type === 'enemy_atak') {
+        console.log("enemy_atak");
+        chek = false;
+        RedrawField(data.card);
 
-//     } else if (data.type === 'enemy_deff') {
-//         // выставить карты врага и начать анимацию атаки 
+        //  выставить карты врага и дать выставить свои карты 
 
-//     } else if (data.type === 'my_atakk') {
-//         // дать выстовить свои карты и начать атаку RedrawField(0)  var chek = true;
+    } else if (data.type === 'enemy_deff') {
+        console.log("enemy_deff");
+        // провести атаку и дать выстовить свои карты 
 
-//     }
-// }
+    } else if (data.type === 'my_atakk') {
+        console.log("my_atakk");
+        // начать анимацию атаки и заблочит передвижение RedrawField(0)  var chek = true;
+
+    }
+}
 
 
 let numCard = 0;// количество карт на поле
-let field = [0, 0, 0, 0, 0];// карты на поле
-// button_stop.addEventListener('mousedown', e => {
-//     socket.send(JSON.stringify(field));
-// });
+let field = [];// карты на поле
+button_stop.addEventListener('mousedown', e => {
+    socket.send(JSON.stringify(field));
+});
 
 
 
-DrawCard(1, allCards[1]);
-DrawCard(2, allCards[2]);
+// DrawCard(1, allCards[1]);
+// DrawCard(2, allCards[2]);
 
 function DrawCard(id, card) { //куда рисовать будет поле с пронумироваными дивами по номеру дива и ресуем
     console.log(id);
@@ -95,18 +100,18 @@ PrintLogin("My", "Enemy");
 function RedrawField(enemyCard) {// перерисовать поле для защиты или атаки
     if (chek == false) {
         myField.innerHTML = '';
+        field = [0, 0, 0, 0, 0];
         var elem;
         var num = 0;
         for (let velu of enemyCard) {
             num = num + 10;
             if (velu != 0) {
-                elem = document.createElement(`<div class="cards" id="${num}">`);
-                myField.appendChild(elem);
-                elem = document.createElement(`<div class="m-1" id="E${velu}"> <div class="cards"> <img style="width:100%; height: 55%; object-fit: cover;" src="${allCards[velu][5]}"><ul><li>Имя: ${allCards[velu][1]}</li><li> мана: ${allCards[velu][4]}</li><li>Здоровье: ${allCards[velu][3]}</li><li>дамаг: ${allCards[velu][6]}</li></ul></div></div>`);// рисуем карту врага
-                EnemyFieldDiv.appendChild(elem);
+                myField.insertAdjacentHTML('afterbegin', `<div class="cards" id="${num}">`);
+                EnemyFieldDiv.insertAdjacentHTML('afterbegin', `<div class="m-1" id="E${velu}"> <div class="cards"> <img style="width:100%; height: 55%; object-fit: cover;" src="${allCards[velu][5]}"><ul><li>Имя: ${allCards[velu][1]}</li><li> мана: ${allCards[velu][4]}</li><li>Здоровье: ${allCards[velu][3]}</li><li>дамаг: ${allCards[velu][6]}</li></ul></div></div>`);// рисуем карту врага
             }
         }
     } else {
+        field = [];
         myField.innerHTML = '<div class="cards" id="myFieldDiv" style="display: flex; justify-content: space-around;  width: 0%"> </div>'
     }
 
@@ -163,21 +168,24 @@ function MoveCardAtak(div, x) {
         numCard += 1;
         myFieldDiv.style.width = `${numCard * 18}%`;
         var coord = myFieldDiv.getBoundingClientRect();
-        console.log(coord.left);
-        console.log(x);
+        //console.log(coord.left);
+        //console.log(x);
         if (x < coord.left) {
+            field.unshift(div.dataset.id);
             console.log("вставляем в начало");
             myFieldDiv.prepend(div.cloneNode(true));
         } else {
+            field.push(div.dataset.id);
             console.log("вставляем в конец");
             myFieldDiv.appendChild(div.cloneNode(true));
         }
     } else {
         numCard += 1;
+        field.push(div.dataset.id);
         myFieldDiv.style.width = `${numCard * 18}%`;
         myFieldDiv.appendChild(div.cloneNode(true));
     }
-
+    console.dir(field);
 }
 
 function MoveCard(div, elementUnderMouse) {
